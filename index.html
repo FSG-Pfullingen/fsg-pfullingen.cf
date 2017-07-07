@@ -1,7 +1,7 @@
 <html>
 <!--
 
-Template by Fabio Ottaviani
+Buttons by Fabio Ottaviani
 
 Dribbble: https://dribbble.com/supahfunk
 Twitter: https://twitter.com/supahfunk
@@ -10,39 +10,99 @@ Codepen: https://codepen.io/supah/
 -->
 <head>
   <title>FSG-Pfullingen</title>
-    <link href="style.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100">
-  <script src="script.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.12/jquery.mousewheel.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900");
+body {
+  color: #9e158f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 100vh;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.btn-animate {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 16px 47px -15px #590b9b;
+  background: none;
+  -webkit-transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+  border-radius: 8px;
+  overflow: hidden;
+  outline: none;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+}
+.btn-animate span {
+  position: relative;
+  z-index: 2;
+}
+.btn-animate:before, .btn-animate:after {
+  border-radius: 8px;
+  content: '';
+  z-index: -1;
+  background: -webkit-linear-gradient(350deg, #560a9b, #9e158f);
+  background: linear-gradient(100deg, #560a9b, #9e158f);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.btn-animate:after {
+  background: -webkit-linear-gradient(350deg, #003f77, #05c4b5);
+  background: linear-gradient(100deg, #003f77, #05c4b5);
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: -webkit-transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  -webkit-transition-delay: .1s;
+          transition-delay: .1s;
+}
+.btn-animate:hover {
+  box-shadow: 0px 16px 47px -15px #003f77;
+}
+.btn-animate:hover:after {
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
+}
+.btn-animate:active {
+  -webkit-transform: translateY(4px) translateZ(0);
+          transform: translateY(4px) translateZ(0);
+  box-shadow: 0px 8px 10px -6px #003f77;
+}
+
+    </style>
   </head>
 <body>
-<div class="split-slideshow">
-  <div class="slideshow">
-    <div class="slider">
-      <div class="item">
-        <img src="https://images.pexels.com/photos/200231/pexels-photo-200231.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      </div>
-      <div class="item">
-        <img src="https://images.pexels.com/photos/299109/pexels-photo-299109.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      </div>
-      <div class="item">
-        <img src="https://images.pexels.com/photos/345753/pexels-photo-345753.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      </div>
-      <div class="item">
-        <img src="https://images.pexels.com/photos/299109/pexels-photo-299109.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-      </div>
-    </div>
-  </div>
-  <div class="slideshow-text">
-    <div class="item">Canyon</div>
-    <div class="item">Desert</div>
-    <div class="item">Erosion</div>
-    <div class="item">Shape</div>
-  </div>
-</div>
+<a href="http://google.com" target="_blank"><button class="btn-animate">Über</button></a> - 
+<a href="http://google.com" target="_blank"><button class="btn-animate">Über</button></a> - 
+<a href="http://google.com" target="_blank"><button class="btn-animate">Über</button></a> - 
+  <a href="http://google.com" target="_blank"><button class="btn-animate">Über</button></a>
+
 </body>
   
