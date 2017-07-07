@@ -1,56 +1,77 @@
-$(document).ready(function() {
+var $slider = $('.slideshow .slider'),
+  maxItems = $('.item', $slider).length,
+  dragging = false,
+  tracking,
+  rightTracking;
 
-  // slide down off-canvas panel
-  $('.ion-ios-more-outline').click(function() {
-    $('.more-options').animate({
-      top: "0px"
-    }, 800, 'easeOutExpo');
-  });
+$sliderRight = $('.slideshow').clone().addClass('slideshow-right').appendTo($('.split-slideshow'));
 
-  // slide panel back off-canvas
-  $('.ion-close-round').click(function() {
-    $('.more-options').animate({
-      top: "-76px"
-    }, 100);
-  });
+rightItems = $('.item', $sliderRight).toArray();
+reverseItems = rightItems.reverse();
+$('.slider', $sliderRight).html('');
+for (i = 0; i < maxItems; i++) {
+  $(reverseItems[i]).appendTo($('.slider', $sliderRight));
+}
 
-  //calc window height so hero is always the same size unless height in less than 605px
-  var heroHeight = $(window).height();
-  if (heroHeight < 605) {
-    $(".hero").css("height", 605);
+$slider.addClass('slideshow-left');
+$('.slideshow-left').slick({
+  vertical: true,
+  verticalSwiping: true,
+  arrows: false,
+  infinite: true,
+  dots: true,
+  speed: 1000,
+  cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)'
+}).on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+
+  if (currentSlide > nextSlide && nextSlide == 0 && currentSlide == maxItems - 1) {
+    $('.slideshow-right .slider').slick('slickGoTo', -1);
+    $('.slideshow-text').slick('slickGoTo', maxItems);
+  } else if (currentSlide < nextSlide && currentSlide == 0 && nextSlide == maxItems - 1) {
+    $('.slideshow-right .slider').slick('slickGoTo', maxItems);
+    $('.slideshow-text').slick('slickGoTo', -1);
   } else {
-    $(".hero").css("height", heroHeight);
+    $('.slideshow-right .slider').slick('slickGoTo', maxItems - 1 - nextSlide);
+    $('.slideshow-text').slick('slickGoTo', nextSlide);
   }
-
-  //Calc margin-top for hero tagline
-  var marginTop = $(window).height() / 2.5
-  $(".hero-title").css("margin-top", marginTop);
-
-  // fade the magic mouse on scroll
-  $(window).scroll(function() {
-    $(".magic-mouse").css("opacity", 1 - $(window).scrollTop() / 600);
-  });
-
-  var heroBase = $('.hero').offset().top + heroHeight
-
-  // add nav background on scroll 
-  $(window).on('scroll', function() {
-    stop = Math.round($(window).scrollTop());
-    if (stop > heroBase) {
-      $('.navbar-fixed-top').addClass('past-hero');
-      $(".ion-ios-more-outline").css("color", "#F35A43");
-      $(".ion-compass").css("color", "#F35A43");
-      $(".navbar-fixed-top").css("background", "#FFF");
-
-    } else {
-      $('.navbar-fixed-top').removeClass('past-hero');
-      $(".ion-ios-more-outline").css("color", "#fff");
-      $(".ion-compass").css("color", "#fff");
-      $(".navbar-fixed-top").css("background", "transparent");
-    }
-
-  });
-    
-  
+}).on("mousewheel", function(event) {
+  event.preventDefault();
+  if (event.deltaX > 0 || event.deltaY < 0) {
+    $(this).slick('slickNext');
+  } else if (event.deltaX < 0 || event.deltaY > 0) {
+    $(this).slick('slickPrev');
+  };
+}).on('mousedown touchstart', function(){
+  dragging = true;
+  tracking = $('.slick-track', $slider).css('transform');
+  tracking = parseInt(tracking.split(',')[5]);
+  rightTracking = $('.slideshow-right .slick-track').css('transform');
+  rightTracking = parseInt(rightTracking.split(',')[5]);
+}).on('mousemove touchmove', function(){
+  if (dragging) {
+    newTracking = $('.slideshow-left .slick-track').css('transform');
+    newTracking = parseInt(newTracking.split(',')[5]);
+    diffTracking = newTracking - tracking;
+    $('.slideshow-right .slick-track').css({'transform': 'matrix(1, 0, 0, 1, 0, ' + (rightTracking - diffTracking) + ')'});
+  }
+}).on('mouseleave touchend mouseup', function(){
+  dragging = false;
 });
 
+$('.slideshow-right .slider').slick({
+  swipe: false,
+  vertical: true,
+  arrows: false,
+  infinite: true,
+  speed: 950,
+  cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)',
+  initialSlide: maxItems - 1
+});
+$('.slideshow-text').slick({
+  swipe: false,
+  vertical: true,
+  arrows: false,
+  infinite: true,
+  speed: 900,
+  cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)'
+});
